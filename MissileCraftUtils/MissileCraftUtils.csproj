@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\GeneralUtils.cs" />
     <Compile Include="Utils\MathUtils.cs" />
+    <Compile Include="Utils\PhysicUtils.cs" />
     <Compile Include="Utils\TimeUtils.cs" />
   </ItemGroup>
   <ItemGroup>
