@@ -163,14 +163,14 @@ public class RigidbodySolver
         return resultList;
     }
 
-    //运动方程为F-drag*v(t) = m*a,化为微分方程为F-drag*v=m*(dv/dt)，解得v = F/m-exp(-drag*t)*F/(m*drag)
-    //位移ds = vdt,解得s = F/m*t+exp(-drag*t)*F/(m*drag*drag)
+    //运动方程为F-drag*v(t) = m*a,化为微分方程为F-drag*v=m*(dv/dt)，解得v = [1-exp(-drag*t)]*F/(m*drag)
+    //位移ds = vdt,解得s = F/(m*(drag*drag))*[drag*t+exp(-drag*t)]
     private SolverResult Solve_EquationSulotion_V(Vector3 startVelocity, float duration)
     {
         Vector3 m_ForceAcceleration = Force / Mass;
         float m_SqrDrag = Drag * Drag;
-        Vector3 speed = m_ForceAcceleration - Mathf.Exp(-Drag * duration) * m_ForceAcceleration / Drag;
-        Vector3 position = m_ForceAcceleration * duration + Mathf.Exp(-Drag * duration) * m_ForceAcceleration / m_SqrDrag;
+        Vector3 speed = (1 - Mathf.Exp(-Drag * duration)) * m_ForceAcceleration / Drag;
+        Vector3 position = m_ForceAcceleration / m_SqrDrag * (Drag * duration + Mathf.Exp(-Drag * duration));
         return new SolverResult() { TimeStamp = duration, Position = position, Velocity = speed};
     }
 
